@@ -53,16 +53,17 @@ public class DirectedGraph {
                 }
             }
 
-            public static void main(String[] args) {
-                int vertices = 4;
-                Graph graph = new Graph(vertices);
-                graph.addEgde(0, 1);
-                graph.addEgde(1, 2);
-                graph.addEgde(2, 3);
-                graph.addEgde(3, 1);
-                boolean result = graph.isCycle();
-                System.out.println("is Cycle present: " + result);
-            }
         }
+    }
+
+    public static void main(String[] args) {
+        int vertices = 4;
+        Graph graph = new Graph(vertices);
+        graph.addEgde(0, 1);
+        graph.addEgde(1, 2);
+        graph.addEgde(2, 3);
+        graph.addEgde(3, 1);
+        boolean result = graph.isCycle();
+        System.out.println("is Cycle present: " + result);
     }
 }
