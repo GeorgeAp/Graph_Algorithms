@@ -2,60 +2,56 @@ import java.util.LinkedList;
 
 public class DirectedGraph {
 
-    static class Graph{
+    static class Graph {
         int vertices;
         LinkedList<Integer>[] adjList;
 
 
-        Graph(int vertices){
+        Graph(int vertices) {
             this.vertices = vertices;
             adjList = new LinkedList[vertices];
             // populated adjacency matrix
-            for (int i = 0; i< vertices; i++){
-                adjList[i] = new LinkedList<>();
+            for (int i = 0; i < vertices; i++) {
+                adjList[i] = new LinkedList();
             }
         }
 
-        public void addEdge(int source, int destination){
-            adjList[source].addFirst(destination);
-        }
 
-        public boolean isCycle(){
+        public boolean isCycle() {
             boolean[] visited = new boolean[vertices];
             boolean[] recursiveArr = new boolean[vertices];
 
             // perform DepthFirstSearch from each vertex
-            for (int i = 0; i < vertices; i++){
-                if (isCycleUtil(i, visited, recursiveArr)){
+            for (int i = 0; i < vertices; i++) {
+                if (isCycleUtil(i, visited, recursiveArr))
                     return true;
-                }
-                return false;
             }
+            return false;
+        }
 
-            public boolean isCycleUtil(int vertex, boolean[] visited, boolean[] recursiveArr){
-                visited[vertex]  = true;
-                recursiveArr[vertex] = true;
+        public boolean isCycleUtil(int vertex, boolean[] visited, boolean[] recursiveArr) {
+            visited[vertex] = true;
+            recursiveArr[vertex] = true;
 
-                // a recursive call to all adjacent vertices
-                for (int i = 0; i < adjList[vertex].size(); i++){
-                    // if not already visited
-                    int adjVertex = adjList[vertex].get(i);
-                    if(!visited[adjVertex] && isCycleUtil(adjVertex, visited, recursiveArr)){
-                        return true;
-                    }
-                    else if(recursiveArr[adjVertex]){
-                        return true;
-                    }
+            // a recursive call to all adjacent vertices
+            for (int i = 0; i < adjList[vertex].size(); i++) {
+                // if not already visited
+                int adjVertex = adjList[vertex].get(i);
+                if (!visited[adjVertex] && isCycleUtil(adjVertex, visited, recursiveArr)) {
+                    return true;
+                } else if (recursiveArr[adjVertex])
+                    return true;
 
-                    // if no cycle is found
-                    recursiveArr[vertex] = false;
-                    return false;
-                }
             }
+            // if no cycle is found
+            recursiveArr[vertex] = false;
+            return false;
+        }
 
+        public void addEgde(int source, int destination) {
+            adjList[source].addFirst(destination);
         }
     }
-
     public static void main(String[] args) {
         int vertices = 4;
         Graph graph = new Graph(vertices);
